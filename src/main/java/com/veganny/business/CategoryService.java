@@ -2,8 +2,9 @@ package com.veganny.business;
 
 import java.util.List;
 
+import com.veganny.persistence.CategoryRepository;
 import com.veganny.persistence.entity.Category;
-import com.veganny.category.CategoryRepository;
+
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 

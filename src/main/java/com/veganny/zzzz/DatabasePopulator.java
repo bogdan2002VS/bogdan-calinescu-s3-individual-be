@@ -1,8 +1,8 @@
 package com.veganny.zzzz;
 
+import com.veganny.persistence.CategoryRepository;
 import com.veganny.persistence.IngredientRepository;
 import com.veganny.persistence.entity.Category;
-import com.veganny.category.CategoryRepository;
 import com.veganny.persistence.RecipeRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
