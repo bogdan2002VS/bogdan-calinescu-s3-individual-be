@@ -1,7 +1,8 @@
-package com.veganny.Ingredient;
+package com.veganny.business;
 
+import com.veganny.persistence.entity.Ingredient;
+import com.veganny.persistence.IngredientRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -9,7 +10,6 @@ import java.util.List;
 @Service
 public class IngredientService {
 
-    @Autowired
     private IngredientRepository ingredientRepository;
 
     public List<Ingredient> getAllIngredients() {

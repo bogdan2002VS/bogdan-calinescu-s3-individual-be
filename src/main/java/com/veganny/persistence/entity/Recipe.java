@@ -1,15 +1,10 @@
-package com.veganny.recipes;
+package com.veganny.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.veganny.category.Category;
-import com.veganny.recipeingredient.RecipeIngredient;
 import jakarta.persistence.Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor

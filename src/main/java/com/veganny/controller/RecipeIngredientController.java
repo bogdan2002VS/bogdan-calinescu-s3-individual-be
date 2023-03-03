@@ -1,5 +1,8 @@
-package com.veganny.recipeingredient;
+package com.veganny.controller;
 
+import com.veganny.business.RecipeIngredientService;
+import com.veganny.persistence.entity.RecipeIngredient;
+import com.veganny.persistence.entity.RecipeIngredientId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

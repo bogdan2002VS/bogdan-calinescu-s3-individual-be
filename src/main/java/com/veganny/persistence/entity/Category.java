@@ -1,12 +1,7 @@
-package com.veganny.category;
+package com.veganny.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.veganny.recipes.Recipe;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.List;
 
 @Entity
 @Data

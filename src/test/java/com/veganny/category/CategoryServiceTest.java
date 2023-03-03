@@ -1,5 +1,7 @@
 package com.veganny.category;
 
+import com.veganny.business.CategoryService;
+import com.veganny.persistence.entity.Category;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

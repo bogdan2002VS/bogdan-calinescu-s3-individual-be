@@ -1,11 +1,10 @@
 package com.veganny.zzzz;
 
-import com.veganny.Ingredient.IngredientRepository;
-import com.veganny.category.Category;
+import com.veganny.persistence.IngredientRepository;
+import com.veganny.persistence.entity.Category;
 import com.veganny.category.CategoryRepository;
-import com.veganny.recipes.RecipeRepository;
+import com.veganny.persistence.RecipeRepository;
 import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,7 +1,9 @@
-package com.veganny.recipeingredient;
+package com.veganny.business;
 
+import com.veganny.persistence.entity.RecipeIngredient;
+import com.veganny.persistence.entity.RecipeIngredientId;
+import com.veganny.persistence.RecipeIngredientRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

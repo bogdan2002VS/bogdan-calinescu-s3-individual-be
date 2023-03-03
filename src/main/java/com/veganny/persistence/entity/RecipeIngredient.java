@@ -1,8 +1,6 @@
-package com.veganny.recipeingredient;
+package com.veganny.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.veganny.Ingredient.Ingredient;
-import com.veganny.recipes.Recipe;
 import jakarta.persistence.*;
 import lombok.Data;
 

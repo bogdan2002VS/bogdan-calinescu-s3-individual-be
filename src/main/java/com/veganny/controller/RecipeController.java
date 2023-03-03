@@ -1,8 +1,8 @@
-package com.veganny.recipes;
+package com.veganny.controller;
 
+import com.veganny.business.RecipeService;
+import com.veganny.persistence.entity.Recipe;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

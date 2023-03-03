@@ -1,5 +1,8 @@
-package com.veganny.recipes;
+package com.veganny.business;
 
+import com.veganny.business.exception.NotFoundException;
+import com.veganny.persistence.entity.Recipe;
+import com.veganny.persistence.RecipeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

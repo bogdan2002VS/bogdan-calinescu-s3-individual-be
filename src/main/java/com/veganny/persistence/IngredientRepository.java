@@ -1,5 +1,6 @@
-package com.veganny.Ingredient;
+package com.veganny.persistence;
 
+import com.veganny.persistence.entity.Ingredient;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,13 +1,14 @@
-package com.veganny.category;
+package com.veganny.business;
 
 import java.util.List;
 
+import com.veganny.persistence.entity.Category;
+import com.veganny.category.CategoryRepository;
 import jakarta.persistence.EntityNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-class CategoryService {
+public class CategoryService {
 
     private CategoryRepository categoryRepository;
 

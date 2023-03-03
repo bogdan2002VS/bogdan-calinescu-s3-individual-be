@@ -1,5 +1,8 @@
 package com.veganny.category;
 
+import com.veganny.business.CategoryService;
+import com.veganny.controller.CategoryController;
+import com.veganny.persistence.entity.Category;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

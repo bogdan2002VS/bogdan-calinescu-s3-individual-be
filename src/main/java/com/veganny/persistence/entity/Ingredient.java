@@ -1,11 +1,7 @@
-package com.veganny.Ingredient;
+package com.veganny.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.veganny.recipeingredient.RecipeIngredient;
 import jakarta.persistence.*;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @Entity
@@ -19,7 +15,5 @@ public class Ingredient {
 
     @Column(name = "Name")
     private String name;
-
-
 
 }

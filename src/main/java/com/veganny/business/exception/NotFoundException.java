@@ -1,4 +1,4 @@
-package com.veganny.recipes;
+package com.veganny.business.exception;
 
 public class NotFoundException extends RuntimeException{
     public NotFoundException(String message) {

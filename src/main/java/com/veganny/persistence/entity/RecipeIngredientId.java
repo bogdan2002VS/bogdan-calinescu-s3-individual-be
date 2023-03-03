@@ -1,4 +1,4 @@
-package com.veganny.recipeingredient;
+package com.veganny.persistence.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
