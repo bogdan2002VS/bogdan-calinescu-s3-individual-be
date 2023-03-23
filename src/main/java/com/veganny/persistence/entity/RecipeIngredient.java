@@ -1,58 +1,33 @@
 package com.veganny.persistence.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.veganny.persistence.RecipeIngredientId;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
+@Data
 @Table(name = "RecipeIngredient")
+@IdClass(RecipeIngredientId.class)
 public class RecipeIngredient {
 
-    @EmbeddedId
-    private RecipeIngredientId id;
-
-    @JsonIgnore
+    @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "RecipeID", referencedColumnName = "ID", insertable = false, updatable = false)
+    @JoinColumn(name = "RecipeID", referencedColumnName = "ID")
     private Recipe recipe;
 
+    @Id
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("ID")
     @JoinColumn(name = "IngredientID", referencedColumnName = "ID")
     private Ingredient ingredient;
+
     @Column(name = "Quantity")
     private int quantity;
 
-    public RecipeIngredientId getId() {
-        return id;
-    }
-
-    public void setId(RecipeIngredientId id) {
-        this.id = id;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
-    public Ingredient getIngredient() {
-        return ingredient;
-    }
-
-    public void setIngredient(Ingredient ingredient) {
-        this.ingredient = ingredient;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    @Column(name = "IngredientId", insertable = false, updatable = false)
+    private Long ingredientId;
 }

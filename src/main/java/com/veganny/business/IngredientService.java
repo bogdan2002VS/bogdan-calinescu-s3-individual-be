@@ -3,11 +3,13 @@ package com.veganny.business;
 import com.veganny.persistence.entity.Ingredient;
 import com.veganny.persistence.IngredientRepository;
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class IngredientService {
 
     private IngredientRepository ingredientRepository;

@@ -29,9 +29,9 @@ public class Recipe {
     @Column(name = "Description")
     private String description;
     @Column(name = "PrepTime")
-    private int prepTime;
+    private String prepTime;
     @Column(name = "CookTime")
-    private int cookTime;
+    private String cookTime;
 
 
 }

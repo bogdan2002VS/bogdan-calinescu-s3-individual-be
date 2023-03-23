@@ -6,6 +6,7 @@ import com.veganny.persistence.CategoryRepository;
 import com.veganny.persistence.entity.Category;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -2,6 +2,7 @@ package com.veganny.controller;
 
 import com.veganny.persistence.entity.Ingredient;
 import com.veganny.business.IngredientService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,14 +10,10 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ingredients")
+@AllArgsConstructor
 public class IngredientController {
 
     private IngredientService ingredientService;
-
-    @Autowired
-    public IngredientController(IngredientService ingredientService) {
-        this.ingredientService = ingredientService;
-    }
 
     @GetMapping
     public List<Ingredient> getAllIngredients() {

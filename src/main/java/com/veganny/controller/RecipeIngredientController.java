@@ -1,23 +1,19 @@
 package com.veganny.controller;
 
 import com.veganny.business.RecipeIngredientService;
+import com.veganny.persistence.RecipeIngredientId;
 import com.veganny.persistence.entity.RecipeIngredient;
-import com.veganny.persistence.entity.RecipeIngredientId;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/recipeIngredients")
+@AllArgsConstructor
 public class RecipeIngredientController {
 
     private RecipeIngredientService recipeIngredientService;
-
-    @Autowired
-    public RecipeIngredientController(RecipeIngredientService recipeIngredientService) {
-        this.recipeIngredientService = recipeIngredientService;
-    }
 
     @GetMapping
     public List<RecipeIngredient> getAllRecipeIngredients() {
