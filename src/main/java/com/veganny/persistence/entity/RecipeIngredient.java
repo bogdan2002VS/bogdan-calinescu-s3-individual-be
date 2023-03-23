@@ -28,6 +28,4 @@ public class RecipeIngredient {
     @Column(name = "Quantity")
     private int quantity;
 
-    @Column(name = "IngredientId", insertable = false, updatable = false)
-    private Long ingredientId;
 }
