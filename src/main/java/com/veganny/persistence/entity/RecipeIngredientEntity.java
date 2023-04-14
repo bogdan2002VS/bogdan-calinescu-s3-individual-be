@@ -1,9 +1,9 @@
 package com.veganny.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.veganny.persistence.RecipeIngredientId;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,19 +11,20 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Data
+@Builder
 @Table(name = "RecipeIngredient")
 @IdClass(RecipeIngredientId.class)
-public class RecipeIngredient {
+public class RecipeIngredientEntity {
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RecipeID", referencedColumnName = "ID")
-    private Recipe recipe;
+    private RecipeEntity recipeEntity;
 
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IngredientID", referencedColumnName = "ID")
-    private Ingredient ingredient;
+    private IngredientEntity ingredientEntity;
 
     @Column(name = "Quantity")
     private int quantity;

@@ -1,13 +1,10 @@
 package com.veganny.persistence;
 
-import com.veganny.persistence.entity.Recipe;
-import com.veganny.persistence.entity.RecipeIngredient;
+import com.veganny.persistence.entity.RecipeIngredientEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface RecipeIngredientRepository extends JpaRepository<RecipeIngredient, RecipeIngredientId> {
+public interface RecipeIngredientRepository extends JpaRepository<RecipeIngredientEntity, RecipeIngredientId> {
 
 }

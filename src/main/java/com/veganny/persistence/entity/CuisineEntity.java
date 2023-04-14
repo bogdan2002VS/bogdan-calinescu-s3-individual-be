@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Recipe")
-public class Recipe {
+@Table(name = "Cuisine")
+public class CuisineEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,23 +21,7 @@ public class Recipe {
     @Column(name = "Name")
     private String name;
 
-    @ManyToOne
-    private Category category;
-
-    @ManyToOne
-    @JoinColumn(name = "cuisine_id")
-    private Cuisine cuisine;
-
-    @Column(name = "NutritionalScore")
-    private String nutritionalScore;
-
     @Column(name = "Description")
     private String description;
-
-    @Column(name = "PrepTime")
-    private String prepTime;
-
-    @Column(name = "CookTime")
-    private String cookTime;
 
 }

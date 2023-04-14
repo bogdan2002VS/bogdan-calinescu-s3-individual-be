@@ -1,6 +1,6 @@
-package com.veganny.business.dto;
+package com.veganny.controller.DTO;
 
-public class CategoryRequest {
+public class CategoryResponse {
     private Long id;
     private String name;
     private String description;
@@ -28,4 +28,5 @@ public class CategoryRequest {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }

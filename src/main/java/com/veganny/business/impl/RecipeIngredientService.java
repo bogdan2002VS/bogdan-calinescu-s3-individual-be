@@ -1,11 +1,10 @@
-package com.veganny.business;
+package com.veganny.business.impl;
 
 import com.veganny.persistence.RecipeIngredientId;
-import com.veganny.persistence.entity.RecipeIngredient;
+import com.veganny.persistence.entity.RecipeIngredientEntity;
 import com.veganny.persistence.RecipeIngredientRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,23 +16,23 @@ public class RecipeIngredientService {
 
     private RecipeIngredientRepository recipeIngredientRepository;
 
-    public List<RecipeIngredient> getAllRecipeIngredients() {
+    public List<RecipeIngredientEntity> getAllRecipeIngredients() {
         return recipeIngredientRepository.findAll();
     }
 
-    public RecipeIngredient getRecipeIngredientById(RecipeIngredientId id) {
+    public RecipeIngredientEntity getRecipeIngredientById(RecipeIngredientId id) {
         return recipeIngredientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("RecipeIngredient not found with id: " + id));
     }
 
-    public RecipeIngredient createRecipeIngredient(RecipeIngredient recipeIngredient) {
-        return recipeIngredientRepository.save(recipeIngredient);
+    public RecipeIngredientEntity createRecipeIngredient(RecipeIngredientEntity recipeIngredientEntity) {
+        return recipeIngredientRepository.save(recipeIngredientEntity);
     }
 
-    public RecipeIngredient updateRecipeIngredient(RecipeIngredientId id, RecipeIngredient recipeIngredientDetails) {
-        RecipeIngredient recipeIngredient = getRecipeIngredientById(id);
-        recipeIngredient.setQuantity(recipeIngredientDetails.getQuantity());
-        return recipeIngredientRepository.save(recipeIngredient);
+    public RecipeIngredientEntity updateRecipeIngredient(RecipeIngredientId id, RecipeIngredientEntity recipeIngredientEntityDetails) {
+        RecipeIngredientEntity recipeIngredientEntity = getRecipeIngredientById(id);
+        recipeIngredientEntity.setQuantity(recipeIngredientEntityDetails.getQuantity());
+        return recipeIngredientRepository.save(recipeIngredientEntity);
     }
 
     public void deleteRecipeIngredient(RecipeIngredientId id) {

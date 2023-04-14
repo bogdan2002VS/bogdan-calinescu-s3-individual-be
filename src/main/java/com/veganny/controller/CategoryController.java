@@ -1,14 +1,12 @@
 package com.veganny.controller;
 
-import com.veganny.business.CategoryService;
-import com.veganny.business.dto.CategoryRequest;
-import com.veganny.business.dto.CategoryResponse;
-import com.veganny.persistence.entity.Category;
+import com.veganny.business.impl.CategoryService;
+import com.veganny.controller.DTO.CategoryRequest;
+import com.veganny.controller.DTO.CategoryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/categories")

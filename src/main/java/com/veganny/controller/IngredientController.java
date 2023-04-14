@@ -1,9 +1,8 @@
 package com.veganny.controller;
 
-import com.veganny.persistence.entity.Ingredient;
-import com.veganny.business.IngredientService;
+import com.veganny.persistence.entity.IngredientEntity;
+import com.veganny.business.impl.IngredientService;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,23 +15,23 @@ public class IngredientController {
     private IngredientService ingredientService;
 
     @GetMapping
-    public List<Ingredient> getAllIngredients() {
+    public List<IngredientEntity> getAllIngredients() {
         return ingredientService.getAllIngredients();
     }
 
     @GetMapping("/{id}")
-    public Ingredient getIngredientById(@PathVariable Long id) {
+    public IngredientEntity getIngredientById(@PathVariable Long id) {
         return ingredientService.getIngredientById(id);
     }
 
     @PostMapping
-    public Ingredient createIngredient(@RequestBody Ingredient ingredient) {
-        return ingredientService.createIngredient(ingredient);
+    public IngredientEntity createIngredient(@RequestBody IngredientEntity ingredientEntity) {
+        return ingredientService.createIngredient(ingredientEntity);
     }
 
     @PutMapping("/{id}")
-    public Ingredient updateIngredient(@PathVariable Long id, @RequestBody Ingredient ingredientDetails) {
-        return ingredientService.updateIngredient(id, ingredientDetails);
+    public IngredientEntity updateIngredient(@PathVariable Long id, @RequestBody IngredientEntity ingredientEntityDetails) {
+        return ingredientService.updateIngredient(id, ingredientEntityDetails);
     }
 
     @DeleteMapping("/{id}")

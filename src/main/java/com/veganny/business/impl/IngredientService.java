@@ -1,6 +1,6 @@
-package com.veganny.business;
+package com.veganny.business.impl;
 
-import com.veganny.persistence.entity.Ingredient;
+import com.veganny.persistence.entity.IngredientEntity;
 import com.veganny.persistence.IngredientRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
@@ -14,23 +14,23 @@ public class IngredientService {
 
     private IngredientRepository ingredientRepository;
 
-    public List<Ingredient> getAllIngredients() {
+    public List<IngredientEntity> getAllIngredients() {
         return ingredientRepository.findAll();
     }
 
-    public Ingredient getIngredientById(Long id) {
+    public IngredientEntity getIngredientById(Long id) {
         return ingredientRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Ingredient was not found with id:" + id));
     }
 
-    public Ingredient createIngredient(Ingredient ingredient) {
-        return ingredientRepository.save(ingredient);
+    public IngredientEntity createIngredient(IngredientEntity ingredientEntity) {
+        return ingredientRepository.save(ingredientEntity);
     }
 
-    public Ingredient updateIngredient(Long id, Ingredient ingredientDetails) {
-        Ingredient ingredient = getIngredientById(id);
-        ingredient.setName(ingredientDetails.getName());
-        return ingredientRepository.save(ingredient);
+    public IngredientEntity updateIngredient(Long id, IngredientEntity ingredientEntityDetails) {
+        IngredientEntity ingredientEntity = getIngredientById(id);
+        ingredientEntity.setName(ingredientEntityDetails.getName());
+        return ingredientRepository.save(ingredientEntity);
     }
 
     public void deleteIngredient(Long id) {
