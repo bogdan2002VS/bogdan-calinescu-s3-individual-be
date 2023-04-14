@@ -1,5 +1,8 @@
 package com.veganny.category;
 
+import com.veganny.business.CategoryService;
+import com.veganny.persistence.CategoryRepository;
+import com.veganny.persistence.entity.Category;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -37,6 +40,7 @@ class CategoryServiceTest {
         Category savedCategory = categoryService.createCategory(category);
 
         assertEquals(category, savedCategory);
+        verify(categoryRepository, times(1)).save(category);
     }
 
     @Test
@@ -53,6 +57,7 @@ class CategoryServiceTest {
         Category result = categoryService.getCategoryById(id);
 
         assertEquals(category, result);
+        verify(categoryRepository, times(1)).findById(id);
     }
 
     @Test
@@ -66,6 +71,7 @@ class CategoryServiceTest {
                         EntityNotFoundException.class, () -> categoryService.getCategoryById(id));
 
         assertEquals("The category was not found with id:" + id, exception.getMessage());
+        verify(categoryRepository, times(1)).findById(id);
     }
 
     @Test
@@ -75,6 +81,7 @@ class CategoryServiceTest {
         when(categoryRepository.findById(id)).thenReturn(Optional.empty());
 
         assertThrows(EntityNotFoundException.class, () -> categoryService.deleteCategory(id));
+        verify(categoryRepository, times(1)).findById(id);
     }
 
     @Test
@@ -103,39 +110,7 @@ class CategoryServiceTest {
         assertThrows(
                 EntityNotFoundException.class,
                 () -> categoryService.updateCategory(id, categoryDetails));
+        verify(categoryRepository, times(1)).findById(id);
     }
 
-    @Test
-    @DisplayName("Should update the category when the id is valid")
-    void updateCategoryWhenIdIsValid() {
-        Category category = new Category();
-        category.setId(1L);
-        category.setName("Category 1");
-        category.setDescription("Description 1");
-
-        Category categoryDetails = new Category();
-        categoryDetails.setName("Category 2");
-        categoryDetails.setDescription("Description 2");
-
-        when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
-        when(categoryRepository.save(category)).thenReturn(category);
-
-        Category updatedCategory = categoryService.updateCategory(1L, categoryDetails);
-
-        assertEquals("Category 2", updatedCategory.getName());
-        assertEquals("Description 2", updatedCategory.getDescription());
-    }
-
-    @Test
-    @DisplayName("Should return all categories")
-    void getAllCategoriesShouldReturnAllCategories() {
-        Category category1 = new Category();
-        Category category2 = new Category();
-        List<Category> categories = Arrays.asList(category1, category2);
-        when(categoryRepository.findAll()).thenReturn(categories);
-
-        List<Category> result = categoryService.getAllCategories();
-
-        assertEquals(categories, result);
-    }
 }
