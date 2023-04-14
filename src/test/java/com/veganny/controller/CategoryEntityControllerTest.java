@@ -1,8 +1,8 @@
 package com.veganny.controller;
 
-import com.veganny.business.CategoryService;
-import com.veganny.business.dto.CategoryRequest;
-import com.veganny.business.dto.CategoryResponse;
+import com.veganny.business.impl.CategoryService;
+import com.veganny.controller.DTO.CategoryRequest;
+import com.veganny.controller.DTO.CategoryResponse;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
-class CategoryControllerTest {
+class CategoryEntityControllerTest {
 
     @Mock
     private CategoryService categoryService;

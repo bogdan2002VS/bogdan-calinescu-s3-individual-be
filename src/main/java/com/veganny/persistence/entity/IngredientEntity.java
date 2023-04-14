@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "Ingredient")
-public class Ingredient {
+public class IngredientEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)

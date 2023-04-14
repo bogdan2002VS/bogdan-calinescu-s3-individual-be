@@ -4,13 +4,20 @@ variables:
 stages:
   - build
   - test
+  - sonarqube
 
 build:
   stage: build
   script:
-    - ./gradlew assemble
-
+    - ./gradlew build -x test
+    - ./gradlew.bat --stop
 test:
   stage: test
   script:
-    - ./gradlew test --debug
+    - ./gradlew test
+    - ./gradlew.bat --stop
+sonarqube:
+  stage: sonarqube
+  script:
+    - ./gradlew sonarqube
+    - ./gradlew.bat --stop

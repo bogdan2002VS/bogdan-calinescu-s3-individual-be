@@ -1,9 +1,9 @@
-package com.veganny.business;
+package com.veganny.business.impl;
 
-import com.veganny.business.dto.CategoryRequest;
-import com.veganny.business.dto.CategoryResponse;
+import com.veganny.controller.DTO.CategoryRequest;
+import com.veganny.controller.DTO.CategoryResponse;
 import com.veganny.persistence.CategoryRepository;
-import com.veganny.persistence.entity.Category;
+import com.veganny.persistence.entity.CategoryEntity;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,39 +28,39 @@ public class CategoryService {
     }
 
     public CategoryResponse getCategoryById(Long id) {
-        Category category = categoryRepository.findById(id)
+        CategoryEntity categoryEntity = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("The category was not found with id:" + id));
-        return convertToCategoryResponse(category);
+        return convertToCategoryResponse(categoryEntity);
     }
 
     public CategoryResponse createCategory(CategoryRequest categoryRequest) {
-        Category category = new Category();
-        category.setName(categoryRequest.getName());
-        category.setDescription(categoryRequest.getDescription());
-        Category savedCategory = categoryRepository.save(category);
-        return convertToCategoryResponse(savedCategory);
+        CategoryEntity categoryEntity = new CategoryEntity();
+        categoryEntity.setName(categoryRequest.getName());
+        categoryEntity.setDescription(categoryRequest.getDescription());
+        CategoryEntity savedCategoryEntity = categoryRepository.save(categoryEntity);
+        return convertToCategoryResponse(savedCategoryEntity);
     }
 
     public CategoryResponse updateCategory(Long id, CategoryRequest categoryRequest) {
-        Category category = categoryRepository.findById(id)
+        CategoryEntity categoryEntity = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("The category was not found with id:" + id));
-        category.setName(categoryRequest.getName());
-        category.setDescription(categoryRequest.getDescription());
-        Category updatedCategory = categoryRepository.save(category);
-        return convertToCategoryResponse(updatedCategory);
+        categoryEntity.setName(categoryRequest.getName());
+        categoryEntity.setDescription(categoryRequest.getDescription());
+        CategoryEntity updatedCategoryEntity = categoryRepository.save(categoryEntity);
+        return convertToCategoryResponse(updatedCategoryEntity);
     }
 
     public void deleteCategory(Long id) {
-        Category category = categoryRepository.findById(id)
+        CategoryEntity categoryEntity = categoryRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("The category was not found with id:" + id));
         categoryRepository.deleteById(id);
     }
 
-    private CategoryResponse convertToCategoryResponse(Category category) {
+    private CategoryResponse convertToCategoryResponse(CategoryEntity categoryEntity) {
         CategoryResponse categoryResponse = new CategoryResponse();
-        categoryResponse.setId(category.getId());
-        categoryResponse.setName(category.getName());
-        categoryResponse.setDescription(category.getDescription());
+        categoryResponse.setId(categoryEntity.getId());
+        categoryResponse.setName(categoryEntity.getName());
+        categoryResponse.setDescription(categoryEntity.getDescription());
         return categoryResponse;
     }
 }

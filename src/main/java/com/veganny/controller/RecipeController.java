@@ -1,7 +1,7 @@
 package com.veganny.controller;
 
-import com.veganny.business.RecipeService;
-import com.veganny.persistence.entity.Recipe;
+import com.veganny.business.impl.RecipeService;
+import com.veganny.persistence.entity.RecipeEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,23 +15,23 @@ public class RecipeController {
     private RecipeService recipeService;
 
     @GetMapping
-    public List<Recipe> getAllRecipes() {
+    public List<RecipeEntity> getAllRecipes() {
         return recipeService.getAllRecipes();
     }
 
     @GetMapping("/{id}")
-    public Recipe getRecipeById(@PathVariable Long id) {
+    public RecipeEntity getRecipeById(@PathVariable Long id) {
         return recipeService.getRecipeById(id);
     }
 
     @PostMapping
-    public Recipe createRecipe(@RequestBody Recipe recipe) {
-        return recipeService.createRecipe(recipe);
+    public RecipeEntity createRecipe(@RequestBody RecipeEntity recipeEntity) {
+        return recipeService.createRecipe(recipeEntity);
     }
 
     @PutMapping("/{id}")
-    public Recipe updateRecipe(@PathVariable Long id, @RequestBody Recipe recipeDetails) {
-        return recipeService.updateRecipe(id, recipeDetails);
+    public RecipeEntity updateRecipe(@PathVariable Long id, @RequestBody RecipeEntity recipeEntityDetails) {
+        return recipeService.updateRecipe(id, recipeEntityDetails);
     }
 
     @DeleteMapping("/{id}")
