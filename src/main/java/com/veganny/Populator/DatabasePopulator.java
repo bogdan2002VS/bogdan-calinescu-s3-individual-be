@@ -3,26 +3,34 @@ package com.veganny.Populator;
 import com.veganny.persistence.*;
 import com.veganny.persistence.CuisineRepository;
 import com.veganny.persistence.entity.*;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.security.SecureRandom;
 
 @Component
 public class DatabasePopulator {
+    @Lazy
 
     private final RecipeRepository recipeRepository;
+    @Lazy
 
     private final IngredientRepository ingredientRepository;
+    @Lazy
+
     private final CuisineRepository cuisineRepository;
+    @Lazy
+
     private RoleRepository roleRepository;
+    @Lazy
     private UserRepository userRepository;
 
     @Autowired
-    public DatabasePopulator(RecipeRepository recipeRepository,  IngredientRepository ingredientRepository, CuisineRepository cuisineRepository, RoleRepository roleRepository, UserRepository userRepository) {
+    public DatabasePopulator(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, CuisineRepository cuisineRepository, RoleRepository roleRepository, UserRepository userRepository) {
         this.recipeRepository = recipeRepository;
             this.ingredientRepository = ingredientRepository;
         this.cuisineRepository = cuisineRepository;

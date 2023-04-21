@@ -1,6 +1,6 @@
 package com.veganny.business.service.impl;
-import com.veganny.business.interfaces.IRoleRepository;
-import com.veganny.business.interfaces.IUserRepository;
+import com.veganny.persistence.IRoleRepository;
+import com.veganny.persistence.IUserRepository;
 import com.veganny.business.jwt.IAccessTokenHelper;
 import com.veganny.business.service.IUserService;
 import com.veganny.domain.AccessToken;
@@ -8,7 +8,6 @@ import com.veganny.domain.IRole;
 import com.veganny.domain.User;
 import com.veganny.domain.UserWithToken;
 import com.veganny.exception.IncorrectCredentialsException;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,7 +29,8 @@ public class UserService implements IUserService {
     private AccessToken requestAccessToken;
 
     // Constructor injection
-    public UserService(@Lazy IUserRepository userRepository, IAccessTokenHelper accessTokenHelper, @Lazy IRoleRepository roleRepository) {
+    @Autowired
+    public UserService(IUserRepository userRepository, IAccessTokenHelper accessTokenHelper, IRoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.accessTokenHelper = accessTokenHelper;
         this.roleRepository = roleRepository;

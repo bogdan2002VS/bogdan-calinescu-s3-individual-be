@@ -7,12 +7,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
 @EnableWebSecurity
+@Configuration
 public class WebSecurityConfig {
 
     @Bean
-    public SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
                 .csrf().disable()
                 .formLogin().disable()

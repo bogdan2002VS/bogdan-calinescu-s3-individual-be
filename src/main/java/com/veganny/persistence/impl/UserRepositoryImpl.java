@@ -1,7 +1,6 @@
 package com.veganny.persistence.impl;
 
-import com.veganny.business.interfaces.IUserRepository;
-import com.veganny.business.service.IUserService;
+import com.veganny.persistence.IUserRepository;
 import com.veganny.persistence.UserRepository;
 import com.veganny.persistence.entity.converters.UserConverter;
 import com.veganny.domain.User;
@@ -12,19 +11,20 @@ import com.veganny.exception.UsernameExistsException;
 import com.veganny.persistence.entity.UserEntity;
 
 import lombok.AllArgsConstructor;
-import org.hibernate.validator.internal.util.stereotypes.Lazy;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
-@Repository
-@AllArgsConstructor
+@Component
 public class UserRepositoryImpl implements IUserRepository {
+    private UserRepository userRepository;
     @Lazy
-    private final UserRepository userRepository;
-    @Lazy
-    private final IUserService userService;
+    public UserRepositoryImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Long saveUser(User user){

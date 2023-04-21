@@ -1,4 +1,4 @@
-package com.veganny.business.interfaces;
+package com.veganny.persistence;
 
 import com.veganny.domain.IRole;
 

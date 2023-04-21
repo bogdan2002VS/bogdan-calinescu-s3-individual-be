@@ -11,12 +11,13 @@ import com.veganny.controller.responses.ResourceCreatedResponse;
 import com.veganny.domain.User;
 import com.veganny.domain.UserWithToken;
 import com.veganny.persistence.entity.converters.UserConverter;
-import jakarta.annotation.security.RolesAllowed;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.security.RolesAllowed;
+import javax.validation.Valid;
 
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
@@ -26,8 +27,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private IUserService userService;
 
-
-    @PostMapping("signup")
+    @PostMapping("/signup")
     public ResponseEntity<ResourceCreatedResponse> signUp(@RequestBody @Valid CreateUserReq req){
         User toCreate = User.builder().firstName(req.getFirstName()).lastName(req.getLastName()).email(req.getEmail()).username(req.getUsername()).password(req.getPassword()).address(req.getAddress()).phone(req.getPhone()).build();
         Long userId = userService.registerUser(toCreate);
@@ -37,6 +37,7 @@ public class AuthController {
 
     @PostMapping("signin")
     public ResponseEntity<GenericObjectResponse> signIn(@RequestBody @Valid LoginReq req){
+        System.out.println("in post signin");
         UserWithToken uwt = userService.loginUser(req.getUsername(), req.getPassword());
 
         UserDTO userDTO = UserConverter.convertToDTO(uwt.getUser());
@@ -46,7 +47,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
-    @GetMapping("checkkey")
+    @GetMapping("/checkkey")
     @IsAuthenticated
     @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<GenericObjectResponse> checkKey(){

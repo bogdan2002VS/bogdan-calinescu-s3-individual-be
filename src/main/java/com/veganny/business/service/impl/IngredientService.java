@@ -2,10 +2,10 @@ package com.veganny.business.service.impl;
 
 import com.veganny.persistence.entity.IngredientEntity;
 import com.veganny.persistence.IngredientRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service

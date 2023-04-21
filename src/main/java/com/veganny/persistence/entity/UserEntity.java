@@ -1,7 +1,7 @@
 package com.veganny.persistence.entity;
 
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.*;
 
 
