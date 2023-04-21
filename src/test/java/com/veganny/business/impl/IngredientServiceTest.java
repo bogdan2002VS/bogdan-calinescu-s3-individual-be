@@ -1,5 +1,6 @@
 package com.veganny.business.impl;
 
+import com.veganny.business.service.impl.IngredientService;
 import com.veganny.persistence.IngredientRepository;
 import com.veganny.persistence.entity.IngredientEntity;
 import jakarta.persistence.EntityNotFoundException;

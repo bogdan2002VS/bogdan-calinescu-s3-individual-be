@@ -1,46 +1,39 @@
 package com.veganny.Populator;
 
-import com.veganny.persistence.CategoryRepository;
+import com.veganny.persistence.*;
 import com.veganny.persistence.CuisineRepository;
-import com.veganny.persistence.IngredientRepository;
-import com.veganny.persistence.entity.CategoryEntity;
-import com.veganny.persistence.RecipeRepository;
-import com.veganny.persistence.entity.CuisineEntity;
-import com.veganny.persistence.entity.IngredientEntity;
-import com.veganny.persistence.entity.RecipeEntity;
+import com.veganny.persistence.entity.*;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.security.SecureRandom;
 
 @Component
 public class DatabasePopulator {
 
     private final RecipeRepository recipeRepository;
-    private final CategoryRepository categoryRepository;
+
     private final IngredientRepository ingredientRepository;
     private final CuisineRepository cuisineRepository;
+    private RoleRepository roleRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    public DatabasePopulator(RecipeRepository recipeRepository, CategoryRepository categoryRepository, IngredientRepository ingredientRepository, CuisineRepository cuisineRepository) {
+    public DatabasePopulator(RecipeRepository recipeRepository,  IngredientRepository ingredientRepository, CuisineRepository cuisineRepository, RoleRepository roleRepository, UserRepository userRepository) {
         this.recipeRepository = recipeRepository;
-        this.categoryRepository = categoryRepository;
-        this.ingredientRepository = ingredientRepository;
+            this.ingredientRepository = ingredientRepository;
         this.cuisineRepository = cuisineRepository;
+        this.roleRepository = roleRepository;
+        this.userRepository = userRepository;
     }
 
     @PostConstruct
     public void populate() {
         // Populate categories
-        CategoryEntity dessert = new CategoryEntity();
-        dessert.setName("Dessert");
-        dessert.setDescription("Yummie");
-        categoryRepository.save(dessert);
 
-        CategoryEntity mainDish = new CategoryEntity();
-        mainDish.setName("Main Dish");
-        mainDish.setDescription("Delicious");
-        categoryRepository.save(mainDish);
 
         // Populate ingredients
         IngredientEntity flour = new IngredientEntity();
@@ -67,8 +60,8 @@ public class DatabasePopulator {
         // Populate recipes
         RecipeEntity recipeEntity1 = new RecipeEntity();
         recipeEntity1.setName("Chocolate Cake");
-        recipeEntity1.setCategoryEntity(dessert);
-        recipeEntity1.setCuisineEntity(american);
+
+
         recipeEntity1.setNutritionalScore("A");
         recipeEntity1.setDescription("The best chocolate cake ever.");
         recipeEntity1.setPrepTime("25 minutes");
@@ -77,19 +70,32 @@ public class DatabasePopulator {
 
         RecipeEntity recipeEntity2 = new RecipeEntity();
         recipeEntity2.setName("Pizza");
-        recipeEntity2.setCategoryEntity(mainDish);
-        recipeEntity2.setCuisineEntity(italian);
+
         recipeEntity2.setNutritionalScore("B");
         recipeEntity2.setDescription("Homemade pizza with fresh ingredients.");
         recipeEntity2.setPrepTime("30 minutes");
         recipeEntity2.setCookTime("15 minutes");
         recipeRepository.save(recipeEntity2);
+
+
+        //users
+        RoleEntity userRole = RoleEntity.builder().id(1L).roleName("user").build();
+        RoleEntity adminRole = RoleEntity.builder().id(2L).roleName("admin").build();
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
+        String encodedPassword = bCryptPasswordEncoder.encode("123");
+        UserEntity admin = UserEntity.builder().role(adminRole).username("admin").password(encodedPassword).email("email").firstName("ad").lastName("min").address("there").phone("+3111").build();
+        UserEntity user = UserEntity.builder().role(userRole).username("test").password(encodedPassword).email("test@email.com").firstName("The").lastName("Tester").address("there").phone("+3111").build();
+        UserEntity bobo = UserEntity.builder().role(userRole).username("bobo").password(encodedPassword).email("bobo@mail.com").firstName("bobo").lastName("Doe").address("there").phone("+3111").build();
+        roleRepository.save(userRole);
+        roleRepository.save(adminRole);
+        userRepository.save(admin);
+        userRepository.save(user);
+        userRepository.save(bobo);
     }
 
     @PreDestroy
     public void cleanUp() {
         recipeRepository.deleteAll();
-        categoryRepository.deleteAll();
         ingredientRepository.deleteAll();
         cuisineRepository.deleteAll();
     }

@@ -1,6 +1,6 @@
 package com.veganny.controller;
 
-import com.veganny.business.impl.RecipeService;
+import com.veganny.business.service.impl.RecipeService;
 import com.veganny.persistence.entity.RecipeEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
