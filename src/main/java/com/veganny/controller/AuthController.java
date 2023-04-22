@@ -27,7 +27,7 @@ import javax.validation.Valid;
 public class AuthController {
     private IUserService userService;
 
-    @PostMapping("/signup")
+    @PostMapping("signup")
     public ResponseEntity<ResourceCreatedResponse> signUp(@RequestBody @Valid CreateUserReq req){
         User toCreate = User.builder().firstName(req.getFirstName()).lastName(req.getLastName()).email(req.getEmail()).username(req.getUsername()).password(req.getPassword()).address(req.getAddress()).phone(req.getPhone()).build();
         Long userId = userService.registerUser(toCreate);
@@ -47,7 +47,7 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
-    @GetMapping("/checkkey")
+    @GetMapping("checkkey")
     @IsAuthenticated
     @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
     public ResponseEntity<GenericObjectResponse> checkKey(){
