@@ -37,7 +37,7 @@ public class AuthController {
 
     @PostMapping("signin")
     public ResponseEntity<GenericObjectResponse> signIn(@RequestBody @Valid LoginReq req){
-        System.out.println("in post signin");
+        System.out.println("in post signin");// performence issue
         UserWithToken uwt = userService.loginUser(req.getUsername(), req.getPassword());
 
         UserDTO userDTO = UserConverter.convertToDTO(uwt.getUser());

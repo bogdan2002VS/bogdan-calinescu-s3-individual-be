@@ -16,7 +16,7 @@ import java.security.SecureRandom;
 public class DatabasePopulator {
     @Lazy
 
-    private final RecipeRepository recipeRepository;
+    private final JPARecipeRepository JPARecipeRepository;
     @Lazy
 
     private final IngredientRepository ingredientRepository;
@@ -25,17 +25,17 @@ public class DatabasePopulator {
     private final CuisineRepository cuisineRepository;
     @Lazy
 
-    private RoleRepository roleRepository;
+    private JPARoleRepository JPARoleRepository;
     @Lazy
-    private UserRepository userRepository;
+    private JPAUserRepository JPAUserRepository;
 
     @Autowired
-    public DatabasePopulator(RecipeRepository recipeRepository, IngredientRepository ingredientRepository, CuisineRepository cuisineRepository, RoleRepository roleRepository, UserRepository userRepository) {
-        this.recipeRepository = recipeRepository;
+    public DatabasePopulator(JPARecipeRepository JPARecipeRepository, IngredientRepository ingredientRepository, CuisineRepository cuisineRepository, JPARoleRepository JPARoleRepository, JPAUserRepository JPAUserRepository) {
+        this.JPARecipeRepository = JPARecipeRepository;
             this.ingredientRepository = ingredientRepository;
         this.cuisineRepository = cuisineRepository;
-        this.roleRepository = roleRepository;
-        this.userRepository = userRepository;
+        this.JPARoleRepository = JPARoleRepository;
+        this.JPAUserRepository = JPAUserRepository;
     }
 
     @PostConstruct
@@ -74,7 +74,7 @@ public class DatabasePopulator {
         recipeEntity1.setDescription("The best chocolate cake ever.");
         recipeEntity1.setPrepTime("25 minutes");
         recipeEntity1.setCookTime("2 hour");
-        recipeRepository.save(recipeEntity1);
+        JPARecipeRepository.save(recipeEntity1);
 
         RecipeEntity recipeEntity2 = new RecipeEntity();
         recipeEntity2.setName("Pizza");
@@ -83,7 +83,7 @@ public class DatabasePopulator {
         recipeEntity2.setDescription("Homemade pizza with fresh ingredients.");
         recipeEntity2.setPrepTime("30 minutes");
         recipeEntity2.setCookTime("15 minutes");
-        recipeRepository.save(recipeEntity2);
+        JPARecipeRepository.save(recipeEntity2);
 
 
         //users
@@ -94,16 +94,16 @@ public class DatabasePopulator {
         UserEntity admin = UserEntity.builder().role(adminRole).username("admin").password(encodedPassword).email("email").firstName("ad").lastName("min").address("there").phone("+3111").build();
         UserEntity user = UserEntity.builder().role(userRole).username("test").password(encodedPassword).email("test@email.com").firstName("The").lastName("Tester").address("there").phone("+3111").build();
         UserEntity bobo = UserEntity.builder().role(userRole).username("bobo").password(encodedPassword).email("bobo@mail.com").firstName("bobo").lastName("Doe").address("there").phone("+3111").build();
-        roleRepository.save(userRole);
-        roleRepository.save(adminRole);
-        userRepository.save(admin);
-        userRepository.save(user);
-        userRepository.save(bobo);
+        JPARoleRepository.save(userRole);
+        JPARoleRepository.save(adminRole);
+        JPAUserRepository.save(admin);
+        JPAUserRepository.save(user);
+        JPAUserRepository.save(bobo);
     }
 
     @PreDestroy
     public void cleanUp() {
-        recipeRepository.deleteAll();
+        JPARecipeRepository.deleteAll();
         ingredientRepository.deleteAll();
         cuisineRepository.deleteAll();
     }
