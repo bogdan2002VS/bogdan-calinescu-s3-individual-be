@@ -3,20 +3,17 @@ package com.veganny.domain;
 import lombok.*;
 
 @Builder
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode
 public class User {
-    @Setter
     private Long id;
 
-    @Setter
     private IRole role;
 
     private String username;
 
-    @Setter
     private String password;
 
     private String firstName;

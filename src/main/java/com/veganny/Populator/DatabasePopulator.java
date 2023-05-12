@@ -91,7 +91,7 @@ public class DatabasePopulator {
         RoleEntity adminRole = RoleEntity.builder().id(2L).roleName("admin").build();
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
         String encodedPassword = bCryptPasswordEncoder.encode("123");
-        UserEntity admin = UserEntity.builder().role(adminRole).username("admin").password(encodedPassword).email("email").firstName("ad").lastName("min").address("there").phone("+3111").build();
+        UserEntity admin = UserEntity.builder().role(adminRole).username("admin").password(encodedPassword).email("email@email.com").firstName("ad").lastName("min").address("there").phone("+3111").build();
         UserEntity user = UserEntity.builder().role(userRole).username("test").password(encodedPassword).email("test@email.com").firstName("The").lastName("Tester").address("there").phone("+3111").build();
         UserEntity bobo = UserEntity.builder().role(userRole).username("bobo").password(encodedPassword).email("bobo@mail.com").firstName("bobo").lastName("Doe").address("there").phone("+3111").build();
         JPARoleRepository.save(userRole);

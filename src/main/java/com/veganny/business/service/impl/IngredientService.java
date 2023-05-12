@@ -1,7 +1,7 @@
 package com.veganny.business.service.impl;
 
-import com.veganny.persistence.entity.IngredientEntity;
 import com.veganny.persistence.IngredientRepository;
+import com.veganny.persistence.entity.IngredientEntity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
