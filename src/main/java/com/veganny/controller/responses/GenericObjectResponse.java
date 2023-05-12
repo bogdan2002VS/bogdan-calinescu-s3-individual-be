@@ -1,4 +1,4 @@
-package com.veganny.domain;
+package com.veganny.controller.responses;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class Ingredient {
-    private Long id;
-    private String name;
-
+public class GenericObjectResponse {
+    private String message;
+    private Object obj;
 }

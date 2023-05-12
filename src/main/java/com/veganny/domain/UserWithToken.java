@@ -2,16 +2,14 @@ package com.veganny.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Data
+@Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class Ingredient {
-    private Long id;
-    private String name;
-
+public class UserWithToken {
+    private User user;
+    private String token;
 }

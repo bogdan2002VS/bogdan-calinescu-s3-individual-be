@@ -9,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class Ingredient {
-    private Long id;
-    private String name;
-
+public class AccessToken {
+    private String username;
+    private String role;
+    private Long userId;
 }

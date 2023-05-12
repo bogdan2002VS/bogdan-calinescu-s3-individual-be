@@ -1,7 +1,6 @@
 package com.veganny.persistence.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,12 +20,6 @@ public class RecipeEntity {
     @Column(name = "Name")
     private String name;
 
-    @ManyToOne
-    private CategoryEntity categoryEntity;
-
-    @ManyToOne
-    @JoinColumn(name = "cuisine_id")
-    private CuisineEntity cuisineEntity;
 
     @Column(name = "NutritionalScore")
     private String nutritionalScore;

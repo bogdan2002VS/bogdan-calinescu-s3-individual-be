@@ -1,17 +1,18 @@
-package com.veganny.domain;
+package com.veganny.controller.requests;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+public class LoginReq {
 
-public class Ingredient {
-    private Long id;
-    private String name;
+    private String username;
 
+    private String password;
 }

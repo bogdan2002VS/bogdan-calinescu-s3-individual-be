@@ -1,5 +1,4 @@
-package com.veganny.domain;
-
+package com.veganny.controller.responses;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,9 +8,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class Ingredient {
+public class ResourceCreatedResponse {
+    private String message;
     private Long id;
-    private String name;
-
 }
