@@ -27,18 +27,6 @@ public class RecipeService {
         return JPARecipeRepository.save(recipeEntity);
     }
 
-    public RecipeEntity updateRecipe(Long id, RecipeEntity recipeEntityDetails) {
-        RecipeEntity recipeEntity = getRecipeById(id);
-
-        recipeEntity.setName(recipeEntityDetails.getName());
-
-        recipeEntity.setNutritionalScore(recipeEntityDetails.getNutritionalScore());
-        recipeEntity.setDescription(recipeEntityDetails.getDescription());
-        recipeEntity.setPrepTime(recipeEntityDetails.getPrepTime());
-        recipeEntity.setCookTime(recipeEntityDetails.getCookTime());
-
-        return JPARecipeRepository.save(recipeEntity);
-    }
 
     public void deleteRecipe(Long id) {
         RecipeEntity recipeEntity = getRecipeById(id);

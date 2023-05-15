@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/recipes")
 @AllArgsConstructor
@@ -27,11 +28,6 @@ public class RecipeController {
     @PostMapping
     public RecipeEntity createRecipe(@RequestBody RecipeEntity recipeEntity) {
         return recipeService.createRecipe(recipeEntity);
-    }
-
-    @PutMapping("/{id}")
-    public RecipeEntity updateRecipe(@PathVariable Long id, @RequestBody RecipeEntity recipeEntityDetails) {
-        return recipeService.updateRecipe(id, recipeEntityDetails);
     }
 
     @DeleteMapping("/{id}")

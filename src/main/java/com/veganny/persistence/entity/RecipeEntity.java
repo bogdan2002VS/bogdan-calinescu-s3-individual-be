@@ -4,33 +4,31 @@ import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import org.springframework.data.repository.cdi.Eager;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
 @Table(name = "Recipe")
+@ToString
 public class RecipeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "Name")
-    private String name;
+    private String title;
+    private String calories;
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "ingredients")
+    @Column(name = "ingredient")
+    private List<String> ingredients;
 
-    @Column(name = "NutritionalScore")
-    private String nutritionalScore;
-
-    @Column(name = "Description")
-    private String description;
-
-    @Column(name = "PrepTime")
-    private String prepTime;
-
-    @Column(name = "CookTime")
-    private String cookTime;
+    private String image;
 
 }

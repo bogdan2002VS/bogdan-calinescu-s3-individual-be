@@ -14,13 +14,12 @@ import java.security.SecureRandom;
 
 @Component
 public class DatabasePopulator {
-    @Lazy
 
     private final JPARecipeRepository JPARecipeRepository;
-    @Lazy
 
-    private final IngredientRepository ingredientRepository;
-    @Lazy
+
+    //private final IngredientRepository ingredientRepository;
+
 
     private final CuisineRepository cuisineRepository;
     @Lazy
@@ -30,9 +29,9 @@ public class DatabasePopulator {
     private JPAUserRepository JPAUserRepository;
 
     @Autowired
-    public DatabasePopulator(JPARecipeRepository JPARecipeRepository, IngredientRepository ingredientRepository, CuisineRepository cuisineRepository, JPARoleRepository JPARoleRepository, JPAUserRepository JPAUserRepository) {
+    public DatabasePopulator(JPARecipeRepository JPARecipeRepository, CuisineRepository cuisineRepository, JPARoleRepository JPARoleRepository, JPAUserRepository JPAUserRepository) {
         this.JPARecipeRepository = JPARecipeRepository;
-            this.ingredientRepository = ingredientRepository;
+          //  this.ingredientRepository = ingredientRepository;
         this.cuisineRepository = cuisineRepository;
         this.JPARoleRepository = JPARoleRepository;
         this.JPAUserRepository = JPAUserRepository;
@@ -43,18 +42,7 @@ public class DatabasePopulator {
         // Populate categories
 
 
-        // Populate ingredients
-        IngredientEntity flour = new IngredientEntity();
-        flour.setName("Flour");
-        ingredientRepository.save(flour);
 
-        IngredientEntity sugar = new IngredientEntity();
-        sugar.setName("Sugar");
-        ingredientRepository.save(sugar);
-
-        IngredientEntity salt = new IngredientEntity();
-        salt.setName("Salt");
-        ingredientRepository.save(salt);
 
         // Populate cuisines
         CuisineEntity american = new CuisineEntity();
@@ -65,25 +53,7 @@ public class DatabasePopulator {
         italian.setName("Italian");
         cuisineRepository.save(italian);
 
-        // Populate recipes
-        RecipeEntity recipeEntity1 = new RecipeEntity();
-        recipeEntity1.setName("Chocolate Cake");
 
-
-        recipeEntity1.setNutritionalScore("A");
-        recipeEntity1.setDescription("The best chocolate cake ever.");
-        recipeEntity1.setPrepTime("25 minutes");
-        recipeEntity1.setCookTime("2 hour");
-        JPARecipeRepository.save(recipeEntity1);
-
-        RecipeEntity recipeEntity2 = new RecipeEntity();
-        recipeEntity2.setName("Pizza");
-
-        recipeEntity2.setNutritionalScore("B");
-        recipeEntity2.setDescription("Homemade pizza with fresh ingredients.");
-        recipeEntity2.setPrepTime("30 minutes");
-        recipeEntity2.setCookTime("15 minutes");
-        JPARecipeRepository.save(recipeEntity2);
 
 
         //users
@@ -104,7 +74,7 @@ public class DatabasePopulator {
     @PreDestroy
     public void cleanUp() {
         JPARecipeRepository.deleteAll();
-        ingredientRepository.deleteAll();
+        //ingredientRepository.deleteAll();
         cuisineRepository.deleteAll();
     }
 }
