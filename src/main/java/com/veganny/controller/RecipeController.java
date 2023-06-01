@@ -1,8 +1,8 @@
 package com.veganny.controller;
-
 import com.veganny.business.service.impl.RecipeService;
+import com.veganny.domain.Recipe;
 import com.veganny.persistence.entity.RecipeEntity;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,24 +10,33 @@ import java.util.List;
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
 @RestController
 @RequestMapping("/recipes")
-@AllArgsConstructor
 public class RecipeController {
 
-    private RecipeService recipeService;
+    private final RecipeService recipeService;
+
+    @Autowired
+    public RecipeController(RecipeService recipeService) {
+        this.recipeService = recipeService;
+    }
 
     @GetMapping
-    public List<RecipeEntity> getAllRecipes() {
+    public List<Recipe> getAllRecipes() {
         return recipeService.getAllRecipes();
     }
 
     @GetMapping("/{id}")
-    public RecipeEntity getRecipeById(@PathVariable Long id) {
+    public Recipe getRecipeById(@PathVariable Long id) {
         return recipeService.getRecipeById(id);
     }
 
     @PostMapping
-    public RecipeEntity createRecipe(@RequestBody RecipeEntity recipeEntity) {
-        return recipeService.createRecipe(recipeEntity);
+    public RecipeEntity createRecipe(@RequestBody Recipe recipe) {
+        return recipeService.createRecipe(recipe);
+    }
+
+    @PutMapping("/{id}")
+    public RecipeEntity updateRecipe(@PathVariable Long id, @RequestBody Recipe recipe) {
+        return recipeService.updateRecipe(id, recipe);
     }
 
     @DeleteMapping("/{id}")

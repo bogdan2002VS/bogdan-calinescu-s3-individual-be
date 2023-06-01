@@ -17,10 +17,6 @@ public class DatabasePopulator {
 
     private final JPARecipeRepository JPARecipeRepository;
 
-
-    //private final IngredientRepository ingredientRepository;
-
-
     private final CuisineRepository cuisineRepository;
     @Lazy
 
