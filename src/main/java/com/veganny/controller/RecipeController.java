@@ -3,6 +3,7 @@ import com.veganny.business.service.impl.RecipeService;
 import com.veganny.domain.Recipe;
 import com.veganny.persistence.entity.RecipeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -42,5 +43,14 @@ public class RecipeController {
     @DeleteMapping("/{id}")
     public void deleteRecipe(@PathVariable Long id) {
         recipeService.deleteRecipe(id);
+    }
+    @GetMapping("/search")
+    public ResponseEntity<List<Recipe>> searchRecipes(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String mealType,
+            @RequestParam(required = false) Integer calories
+    ) {
+        List<Recipe> recipes = recipeService.searchRecipes(title, mealType, calories);
+        return ResponseEntity.ok(recipes);
     }
 }

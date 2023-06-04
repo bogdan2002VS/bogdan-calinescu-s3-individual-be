@@ -19,6 +19,7 @@ public class Recipe {
     private Long id;
     private String title;
     private String calories;
+    private String mealType;
     private List<String> ingredients;
     private String image;
     private List<ReviewEntity> reviews;

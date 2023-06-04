@@ -5,6 +5,8 @@ import com.veganny.persistence.entity.ReviewEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ReviewService {
 
@@ -22,5 +24,9 @@ public class ReviewService {
     public ReviewEntity getReviewById(Long id) {
         return reviewRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Review not found with ID: " + id));
+    }
+
+    public List<Object[]> getReviewStatistics(Long recipeId) {
+        return reviewRepository.getReviewCountByStarRating(recipeId);
     }
 }
