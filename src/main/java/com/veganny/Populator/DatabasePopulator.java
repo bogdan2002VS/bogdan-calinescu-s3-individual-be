@@ -48,7 +48,7 @@ public class DatabasePopulator {
         // Add a recipe
         RecipeEntity recipe = new RecipeEntity();
         recipe.setTitle("Spaghetti Bolognese");
-        recipe.setCalories("500");
+        recipe.setCalories(500);
         recipe.setImage("spaghetti.jpg");
         recipe.setMealType("Lunch");
         recipe.setIngredients(Arrays.asList("spaghetti", "ground beef", "tomato sauce", "onion", "garlic"));

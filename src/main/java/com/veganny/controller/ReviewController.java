@@ -1,9 +1,13 @@
 package com.veganny.controller;
 
 import com.veganny.business.service.impl.ReviewService;
+import com.veganny.business.service.impl.UserService;
+import com.veganny.domain.User;
 import com.veganny.persistence.entity.RecipeEntity;
 import com.veganny.persistence.entity.ReviewEntity;
 
+import com.veganny.persistence.entity.UserEntity;
+import com.veganny.persistence.entity.converters.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +24,9 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
-    @Autowired
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
+
     }
 
     @PostMapping

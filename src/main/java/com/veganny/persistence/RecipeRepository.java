@@ -8,9 +8,10 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface RecipeRepository extends JpaRepository<RecipeEntity, Long> {
+public interface RecipeRepository extends JpaRepository<RecipeEntity, Long>, RecipeRepositoryCustom {
 
     @EntityGraph(attributePaths = {"reviews", "ingredients"})
     @Query("SELECT r FROM RecipeEntity r WHERE r.id = :id")
     Optional<RecipeEntity> findByIdWithReviewsAndIngredients(@Param("id") Long id);
+
 }

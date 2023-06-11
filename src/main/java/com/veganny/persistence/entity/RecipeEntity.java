@@ -1,14 +1,9 @@
 package com.veganny.persistence.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-
-
-import org.hibernate.search.annotations.Field;
-
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -25,14 +20,12 @@ public class RecipeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Field
     @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
-    private String calories;
+    private Integer calories;
 
-    @Field
     @Column(nullable = false)
     private String mealType;
 

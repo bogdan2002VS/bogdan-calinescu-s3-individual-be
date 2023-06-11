@@ -46,11 +46,13 @@ public class RecipeController {
     }
     @GetMapping("/search")
     public ResponseEntity<List<Recipe>> searchRecipes(
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) String mealType,
-            @RequestParam(required = false) Integer calories
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "mealType", required = false) String mealType,
+            @RequestParam(value = "caloriesFrom", required = false) Integer caloriesFrom,
+            @RequestParam(value = "caloriesTo", required = false) Integer caloriesTo
     ) {
-        List<Recipe> recipes = recipeService.searchRecipes(title, mealType, calories);
+        List<Recipe> recipes = recipeService.searchRecipes(title, mealType, caloriesFrom, caloriesTo);
         return ResponseEntity.ok(recipes);
     }
+
 }

@@ -25,6 +25,10 @@ public class ReviewEntity {
     @JoinColumn(name = "recipe_id")
     private RecipeEntity recipe;
 
+    private Long userId;
+
+
+
 
 
 }

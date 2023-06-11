@@ -18,7 +18,7 @@ public class Recipe {
 
     private Long id;
     private String title;
-    private String calories;
+    private Integer calories;
     private String mealType;
     private List<String> ingredients;
     private String image;
