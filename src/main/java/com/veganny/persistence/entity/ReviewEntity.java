@@ -25,10 +25,7 @@ public class ReviewEntity {
     @JoinColumn(name = "recipe_id")
     private RecipeEntity recipe;
 
-    private Long userId;
-
-
-
-
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }

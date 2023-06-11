@@ -60,7 +60,12 @@ public class AccessTokenHelper implements IAccessTokenHelper{
     @Override
     public AccessToken decode(String accessTokenEncoded) {
         try {
-            Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessTokenEncoded).getBody();
+            Claims claims = Jwts.parserBuilder()
+                    .setSigningKey(key)
+                    .setAllowedClockSkewSeconds(60)
+                    .build()
+                    .parseClaimsJws(accessTokenEncoded)
+                    .getBody();
 
             String role = claims.get("role", String.class);
 
@@ -73,4 +78,5 @@ public class AccessTokenHelper implements IAccessTokenHelper{
             throw new BadTokenException(e.getMessage());
         }
     }
+
 }

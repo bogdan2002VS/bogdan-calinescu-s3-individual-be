@@ -1,5 +1,7 @@
 package com.veganny.controller;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.veganny.business.service.impl.ReviewService;
 import com.veganny.business.service.impl.UserService;
 import com.veganny.domain.User;
@@ -13,6 +15,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -24,37 +29,50 @@ public class ReviewController {
 
     private final ReviewService reviewService;
 
+    @Autowired
     public ReviewController(ReviewService reviewService) {
         this.reviewService = reviewService;
-
     }
 
-    @PostMapping
-    public ResponseEntity<ReviewEntity> createReview(@RequestBody ReviewEntity review, @RequestParam Long recipeId) {
-        RecipeEntity recipe = new RecipeEntity();
-        recipe.setId(recipeId);
-        review.setRecipe(recipe);
-        ReviewEntity createdReview = reviewService.saveReview(review);
-        return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
+    @PostMapping("/{id}")
+    public ResponseEntity<ReviewEntity> saveReview(
+            @PathVariable Long id,
+            @RequestBody ReviewEntity review,
+            HttpServletRequest request
+    ) throws IOException {
+        try {
+            String accessToken = request.getHeader("Authorization").substring(7);
+            String[] pieces = accessToken.split("\\.");
+            String decoded = new String(Base64.getDecoder().decode(pieces[1]));
+            JsonNode json = new ObjectMapper().readTree(decoded);
+            Long userId = json.get("userId").asLong();
+            ReviewEntity savedReview = reviewService.saveReview(review, id, userId);
+            return ResponseEntity.ok(savedReview);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ReviewEntity> getReviewById(@PathVariable Long id) {
-        ReviewEntity review = reviewService.getReviewById(id);
-        return ResponseEntity.ok(review);
+        try {
+            ReviewEntity review = reviewService.getReviewById(id);
+            return ResponseEntity.ok(review);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     @GetMapping("/statistics/{recipeId}")
-    public ResponseEntity<Map<Integer, Long>> getReviewStatistics(@PathVariable Long recipeId) {
-        List<Object[]> reviewStatistics = reviewService.getReviewStatistics(recipeId);
-
-        // Prepare the result as a map of star rating to review count
-        Map<Integer, Long> result = reviewStatistics.stream()
-                .collect(Collectors.toMap(
-                        arr -> (Integer) arr[0],
-                        arr -> (Long) arr[1]
-                ));
-        System.out.println(result);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<List<Object[]>> getReviewStatistics(@PathVariable Long recipeId) {
+        try {
+            List<Object[]> statistics = reviewService.getReviewStatistics(recipeId);
+            return ResponseEntity.ok(statistics);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 }
