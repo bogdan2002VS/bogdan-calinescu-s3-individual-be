@@ -11,4 +11,6 @@ public interface ReviewRepository extends JpaRepository<ReviewEntity, Long> {
 
     @Query("SELECT r.stars, COUNT(r) AS reviewCount FROM ReviewEntity r WHERE r.recipe.id = :recipeId GROUP BY r.stars")
     List<Object[]> getReviewCountByStarRating(@Param("recipeId") Long recipeId);
+
+    ReviewEntity findByRecipeIdAndUserId(Long recipeId, Long userId);
 }

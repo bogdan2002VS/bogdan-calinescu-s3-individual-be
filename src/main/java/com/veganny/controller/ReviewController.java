@@ -2,14 +2,10 @@ package com.veganny.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.veganny.business.jwt.AccessTokenHelper;
 import com.veganny.business.service.impl.ReviewService;
-import com.veganny.business.service.impl.UserService;
-import com.veganny.domain.User;
-import com.veganny.persistence.entity.RecipeEntity;
 import com.veganny.persistence.entity.ReviewEntity;
 
-import com.veganny.persistence.entity.UserEntity;
-import com.veganny.persistence.entity.converters.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,33 +24,46 @@ import java.util.stream.Collectors;
 public class ReviewController {
 
     private final ReviewService reviewService;
+    private final AccessTokenHelper accessTokenHelper;
 
     @Autowired
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(ReviewService reviewService, AccessTokenHelper accessTokenHelper) {
         this.reviewService = reviewService;
+        this.accessTokenHelper = accessTokenHelper;
     }
 
     @PostMapping("/{id}")
     public ResponseEntity<ReviewEntity> saveReview(
             @PathVariable Long id,
-            @RequestBody ReviewEntity review,
+            @RequestBody Integer rating,
             HttpServletRequest request
     ) throws IOException {
         try {
             String accessToken = request.getHeader("Authorization").substring(7);
-            String[] pieces = accessToken.split("\\.");
-            String decoded = new String(Base64.getDecoder().decode(pieces[1]));
-            JsonNode json = new ObjectMapper().readTree(decoded);
-            Long userId = json.get("userId").asLong();
-            ReviewEntity savedReview = reviewService.saveReview(review, id, userId);
+            Long userId = accessTokenHelper.decode(accessToken).getUserId();
+            ReviewEntity savedReview = reviewService.saveReview(rating, id, userId);
             return ResponseEntity.ok(savedReview);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
-    @GetMapping("/{id}")
+    @GetMapping("/{recipeId}")
+    public ResponseEntity<ReviewEntity> getUserReview(
+            @PathVariable Long recipeId,
+            HttpServletRequest request
+    ) {
+        try {
+            String accessToken = request.getHeader("Authorization").substring(7);
+            Long userId = accessTokenHelper.decode(accessToken).getUserId();
+            ReviewEntity review = reviewService.getReviewByRecipeIdAndUserId(recipeId, userId);
+            return ResponseEntity.ok(review);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+/*    @GetMapping("/{id}")
     public ResponseEntity<ReviewEntity> getReviewById(@PathVariable Long id) {
         try {
             ReviewEntity review = reviewService.getReviewById(id);
@@ -63,16 +72,18 @@ public class ReviewController {
             e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-    }
+    }*/
 
     @GetMapping("/statistics/{recipeId}")
-    public ResponseEntity<List<Object[]>> getReviewStatistics(@PathVariable Long recipeId) {
-        try {
-            List<Object[]> statistics = reviewService.getReviewStatistics(recipeId);
-            return ResponseEntity.ok(statistics);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
+    public ResponseEntity<Map<Integer, Long>> getReviewStatistics(@PathVariable Long recipeId) {
+        List<Object[]> reviewStatistics = reviewService.getReviewStatistics(recipeId);
+        Map<Integer, Long> result = reviewStatistics.stream()
+                .collect(Collectors.toMap(
+                        arr -> (Integer) arr[0],
+                        arr -> (Long) arr[1]
+                ));
+        System.out.println(result);
+        return ResponseEntity.ok(result);
     }
+
 }

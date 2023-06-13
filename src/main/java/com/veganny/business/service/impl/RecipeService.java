@@ -29,7 +29,7 @@ public class RecipeService {
     }
 
     public Recipe getRecipeById(Long id) {
-        RecipeEntity recipeEntity = recipeRepository.findByIdWithReviewsAndIngredients(id)
+        RecipeEntity recipeEntity = recipeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Recipe was not found with id: " + id));
         return convertToDto(recipeEntity);
     }
@@ -42,6 +42,7 @@ public class RecipeService {
     public RecipeEntity updateRecipe(Long id, Recipe recipe) {
         RecipeEntity existingRecipe = recipeRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("Recipe was not found with id: " + id));
+        existingRecipe.setId(id);
         existingRecipe.setTitle(recipe.getTitle());
         existingRecipe.setCalories(recipe.getCalories());
         existingRecipe.setIngredients(recipe.getIngredients());

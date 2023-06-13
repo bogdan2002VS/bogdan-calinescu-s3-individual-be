@@ -17,30 +17,38 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
     private final IUserRepository userRepository;
+
     private  final RecipeRepository recipeRepository;
 
     @Autowired
     public ReviewService(ReviewRepository reviewRepository, IUserRepository userRepository, RecipeRepository recipeRepository) {
         this.reviewRepository = reviewRepository;
         this.userRepository = userRepository;
-        this.recipeRepository =  recipeRepository;
+        this.recipeRepository = recipeRepository;
     }
 
-    public ReviewEntity saveReview(ReviewEntity review, Long recipeId, Long userId) {
+    public ReviewEntity saveReview(Integer rating, Long recipeId, Long userId) {
         User user = userRepository.findById(userId);
-        review.setUser(UserConverter.convertToEntity(user));
-        review.setRecipe(recipeRepository.findById(recipeId)
-                .orElseThrow(() -> new IllegalArgumentException("Recipe not found with ID: " + recipeId)));
-        return reviewRepository.save(review);
+
+        ReviewEntity reviewEntity = reviewRepository.findByRecipeIdAndUserId(recipeId, userId);
+        if(reviewEntity == null ){
+            reviewEntity = new ReviewEntity();
+            reviewEntity.setUser(UserConverter.convertToEntity(user));
+            reviewEntity.setRecipe(recipeRepository.findById(recipeId)
+                    .orElseThrow(() -> new IllegalArgumentException("Recipe not found with ID: " + recipeId)));
+        }
+        reviewEntity.setStars(rating);
+
+        return reviewRepository.save(reviewEntity);
     }
 
-    public ReviewEntity getReviewById(Long id) {
-        return reviewRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Review not found with ID: " + id));
+
+
+    public ReviewEntity getReviewByRecipeIdAndUserId(Long recipeId, Long userId) {
+        return reviewRepository.findByRecipeIdAndUserId(recipeId, userId);
     }
 
     public List<Object[]> getReviewStatistics(Long recipeId) {
         return reviewRepository.getReviewCountByStarRating(recipeId);
     }
-
 }

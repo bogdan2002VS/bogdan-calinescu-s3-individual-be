@@ -1,11 +1,13 @@
 package com.veganny.controller;
 import com.veganny.business.service.impl.RecipeService;
+import com.veganny.configuration.security.isauthenticated.IsAuthenticated;
 import com.veganny.domain.Recipe;
 import com.veganny.persistence.entity.RecipeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000", maxAge = 3600)
@@ -25,21 +27,25 @@ public class RecipeController {
         return recipeService.getAllRecipes();
     }
 
-    @GetMapping("/{id}")
-    public Recipe getRecipeById(@PathVariable Long id) {
-        return recipeService.getRecipeById(id);
+    @GetMapping("/{recipeId}")
+    public Recipe getRecipeById(@PathVariable Long recipeId) {
+        return recipeService.getRecipeById(recipeId);
     }
 
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_USER,ROLE_ADMIN"})
     @PostMapping
     public RecipeEntity createRecipe(@RequestBody Recipe recipe) {
         return recipeService.createRecipe(recipe);
     }
-
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN"})
     @PutMapping("/{id}")
     public RecipeEntity updateRecipe(@PathVariable Long id, @RequestBody Recipe recipe) {
         return recipeService.updateRecipe(id, recipe);
     }
-
+    @IsAuthenticated
+    @RolesAllowed({"ROLE_ADMIN"})
     @DeleteMapping("/{id}")
     public void deleteRecipe(@PathVariable Long id) {
         recipeService.deleteRecipe(id);
