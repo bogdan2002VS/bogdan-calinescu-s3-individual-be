@@ -47,13 +47,4 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }
 
-    @GetMapping("checkkey")
-    @IsAuthenticated
-    @RolesAllowed({"ROLE_USER", "ROLE_ADMIN"})
-    public ResponseEntity<GenericObjectResponse> checkKey(){
-        User loggedUser = userService.getUserByAccessToken();
-        UserDTO userDTO = UserConverter.convertToDTO(loggedUser);
-        GenericObjectResponse res = GenericObjectResponse.builder().message("Auth key valid. Login successful").obj(userDTO).build();
-        return ResponseEntity.status(HttpStatus.OK).body(res);
-    }
 }

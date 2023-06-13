@@ -8,6 +8,7 @@ import com.veganny.domain.IRole;
 import com.veganny.domain.User;
 import com.veganny.domain.UserWithToken;
 import com.veganny.exception.IncorrectCredentialsException;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -28,7 +29,7 @@ public class UserService implements IUserService {
 
     private AccessToken requestAccessToken;
 
-    // Constructor injection
+
     @Autowired
     public UserService(IUserRepository userRepository, IAccessTokenHelper accessTokenHelper, IRoleRepository roleRepository) {
         this.userRepository = userRepository;
@@ -66,12 +67,5 @@ public class UserService implements IUserService {
         return userRepository.findById(id);
 
     }
-    @Override
-    public User getUserByUsername(String username){
-        return userRepository.getUserByUsername(username);
-    }
-    @Override
-    public User getUserByAccessToken(){
-        return userRepository.findById(requestAccessToken.getUserId());
-    }
+
 }

@@ -1,10 +1,13 @@
 package com.veganny.domain;
 
 
+import com.veganny.persistence.entity.ReviewEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -14,12 +17,11 @@ import lombok.NoArgsConstructor;
 public class Recipe {
 
     private Long id;
-    private String name;
-
-    private Cuisine cuisineEntity;
-    private String nutritionalScore;
-    private String description;
-    private String prepTime;
-    private String cookTime;
+    private String title;
+    private Integer calories;
+    private String mealType;
+    private List<String> ingredients;
+    private String image;
+    private List<ReviewEntity> reviews;
 
 }

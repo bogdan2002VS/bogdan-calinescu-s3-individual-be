@@ -19,10 +19,5 @@ public class UserRole implements IRole {
         return role;
     }
     public Long getRoleId(){return id;}
-    public boolean canAccessAuctionCRUD(){
-        return false;
-    }
-    public boolean canAccessCommentCRUD(){
-        return false;
-    }
+
 }

@@ -1,36 +1,43 @@
 package com.veganny.persistence.entity;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
 @Table(name = "Recipe")
+@ToString
 public class RecipeEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", insertable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    private String title;
 
-    @Column(name = "Name")
-    private String name;
+    @Column(nullable = false)
+    private Integer calories;
+
+    @Column(nullable = false)
+    private String mealType;
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(name = "ingredients", joinColumns = @JoinColumn(name = "recipe_id"))
+    @Column(name = "ingredient")
+    private List<String> ingredients = new ArrayList<>();
 
 
-    @Column(name = "NutritionalScore")
-    private String nutritionalScore;
+    private String image;
 
-    @Column(name = "Description")
-    private String description;
 
-    @Column(name = "PrepTime")
-    private String prepTime;
 
-    @Column(name = "CookTime")
-    private String cookTime;
 
 }
