@@ -19,10 +19,5 @@ public class AdminRole implements IRole {
     public Long getRoleId(){
         return id;
     }
-    public boolean canAccessAuctionCRUD(){
-        return true;
-    }
-    public boolean canAccessCommentCRUD(){
-        return true;
-    }
+
 }

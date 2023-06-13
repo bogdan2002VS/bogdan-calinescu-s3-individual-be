@@ -10,6 +10,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
 import java.security.Key;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -18,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class AccessTokenHelper implements IAccessTokenHelper{
+public class AccessTokenHelper implements IAccessTokenHelper {
     private final Key key;
 
     public AccessTokenHelper(@Value("${jwt.secret}") String secretKey) {
@@ -29,7 +30,7 @@ public class AccessTokenHelper implements IAccessTokenHelper{
     @Override
     public String generateAccessToken(User user) {
         Long userId = user.getId();
-        String role= user.getRole() == null ? null : user.getRole().getRole();
+        String role = user.getRole() == null ? null : user.getRole().getRole();
 
         return encode(
                 AccessToken.builder()
@@ -57,6 +58,7 @@ public class AccessTokenHelper implements IAccessTokenHelper{
                 .signWith(key)
                 .compact();
     }
+
     @Override
     public AccessToken decode(String accessTokenEncoded) {
         try {
