@@ -33,7 +33,7 @@ public class RecipeController {
     }
 
     @IsAuthenticated
-    @RolesAllowed({"ROLE_USER,ROLE_ADMIN"})
+    @RolesAllowed({"ROLE_USER","ROLE_ADMIN"})
     @PostMapping
     public RecipeEntity createRecipe(@RequestBody Recipe recipe) {
         return recipeService.createRecipe(recipe);

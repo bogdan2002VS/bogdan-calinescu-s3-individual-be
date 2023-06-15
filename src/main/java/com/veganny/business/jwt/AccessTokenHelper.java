@@ -40,7 +40,7 @@ public class AccessTokenHelper implements IAccessTokenHelper {
                         .build());
     }
 
-    private String encode(AccessToken accessToken) {
+    String encode(AccessToken accessToken) {
         Map<String, Object> claimsMap = new HashMap<>();
         if (accessToken.getRole() != null && !accessToken.getRole().isEmpty()) {
             claimsMap.put("role", accessToken.getRole());
