@@ -8,18 +8,14 @@ import com.veganny.exception.BadTokenException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 public class AccessTokenHelperTest {
 
-    @Autowired
-    private IAccessTokenHelper accessTokenHelper;
+    private final IAccessTokenHelper accessTokenHelper = new AccessTokenHelper("E91E158E4C6656F68B1B5D1C316766DE98D2AD6EF3BFB44F78E9CFCDF5");
 
     @Test
     @DisplayName("Should throw a BadTokenException when decoding an invalid access token")
@@ -103,13 +99,10 @@ public class AccessTokenHelperTest {
                 .phone("555-555-5555")
                 .build();
 
-        // Generate an access token for the user
         String accessTokenEncoded = accessTokenHelper.generateAccessToken(user);
 
-        // Decode the access token
         AccessToken accessToken = accessTokenHelper.decode(accessTokenEncoded);
 
-        // Verify that the decoded access token matches the expected values
         assertEquals(user.getUsername(), accessToken.getUsername());
         assertEquals(user.getRole().getRole(), accessToken.getRole());
         assertEquals(user.getId(), accessToken.getUserId());
