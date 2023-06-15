@@ -39,6 +39,34 @@ class ReviewServiceTest {
 
 
     @Test
+    @DisplayName("Should return null when no reviews are found for the given recipe ID")
+    void getAverageStarRatingWhenNoReviewsFound() {
+        Long recipeId = 1L;
+        when(reviewRepository.getAverageStarRating(recipeId)).thenReturn(null);
+
+        Double result = reviewService.getAverageStarRating(recipeId);
+
+        assertNull(result);
+        verify(reviewRepository, times(1)).getAverageStarRating(recipeId);
+    }
+
+    @Test
+    @DisplayName("Should return the average star rating for the given recipe ID")
+    void getAverageStarRating() {
+        Long recipeId = 1L;
+        Double expectedAverageRating = 4.5;
+
+
+        when(reviewRepository.getAverageStarRating(recipeId)).thenReturn(expectedAverageRating);
+
+        Double actualAverageRating = reviewService.getAverageStarRating(recipeId);
+
+        verify(reviewRepository, times(1)).getAverageStarRating(recipeId);
+
+        assertEquals(expectedAverageRating, actualAverageRating);
+    }
+
+    @Test
     @DisplayName("Should return review statistics for a given recipe ID")
     void getReviewStatisticsForGivenRecipeId() {// create mock data
         Long recipeId = 1L;
@@ -89,10 +117,9 @@ class ReviewServiceTest {
 
     @Test
     @DisplayName("Should return the review when the recipeId and userId are valid")
-    void getReviewByRecipeIdAndUserIdWhenValid() {// create test data
+    void getReviewByRecipeIdAndUserIdWhenValid() {
         Long recipeId = 1L;
         Long userId = 2L;
-        // create mock objects
         User user = User.builder()
                 .id(userId)
                 .role(UserRole.builder()

@@ -63,16 +63,6 @@ public class ReviewController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-/*    @GetMapping("/{id}")
-    public ResponseEntity<ReviewEntity> getReviewById(@PathVariable Long id) {
-        try {
-            ReviewEntity review = reviewService.getReviewById(id);
-            return ResponseEntity.ok(review);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }*/
 
     @GetMapping("/statistics/{recipeId}")
     public ResponseEntity<Map<Integer, Long>> getReviewStatistics(@PathVariable Long recipeId) {
@@ -84,6 +74,18 @@ public class ReviewController {
                 ));
         System.out.println(result);
         return ResponseEntity.ok(result);
+    }
+
+
+
+    @GetMapping("/average/{recipeId}")
+    public ResponseEntity<Double> getAverageStarRating(@PathVariable Long recipeId) {
+        Double averageStarRating = reviewService.getAverageStarRating(recipeId);
+        if (averageStarRating == null) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(averageStarRating);
+        }
     }
 
 }

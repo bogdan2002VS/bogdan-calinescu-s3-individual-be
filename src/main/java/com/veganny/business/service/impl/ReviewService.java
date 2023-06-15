@@ -51,4 +51,9 @@ public class ReviewService {
     public List<Object[]> getReviewStatistics(Long recipeId) {
         return reviewRepository.getReviewCountByStarRating(recipeId);
     }
+
+
+    public Double getAverageStarRating(Long recipeId) {
+        return reviewRepository.getAverageStarRating(recipeId);
+    }
 }

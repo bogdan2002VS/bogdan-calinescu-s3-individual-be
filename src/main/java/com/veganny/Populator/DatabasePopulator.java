@@ -17,6 +17,7 @@ import java.util.Arrays;
 public class DatabasePopulator {
 
     private final RecipeRepository JPARecipeRepository;
+    private final ReviewRepository reviewRepository;
 
     private final CuisineRepository cuisineRepository;
     @Lazy
@@ -25,11 +26,12 @@ public class DatabasePopulator {
     private JPAUserRepository JPAUserRepository;
 
     @Autowired
-    public DatabasePopulator(RecipeRepository JPARecipeRepository, CuisineRepository cuisineRepository, JPARoleRepository JPARoleRepository, JPAUserRepository JPAUserRepository) {
+    public DatabasePopulator(RecipeRepository JPARecipeRepository, CuisineRepository cuisineRepository, JPARoleRepository JPARoleRepository, JPAUserRepository JPAUserRepository, ReviewRepository reviewRepository) {
         this.JPARecipeRepository = JPARecipeRepository;
         this.cuisineRepository = cuisineRepository;
         this.JPARoleRepository = JPARoleRepository;
         this.JPAUserRepository = JPAUserRepository;
+        this.reviewRepository = reviewRepository;
     }
 
     @PostConstruct
@@ -68,6 +70,14 @@ public class DatabasePopulator {
         JPAUserRepository.save(admin);
         JPAUserRepository.save(user);
         JPAUserRepository.save(bobo);
+
+        // Add a review
+        ReviewEntity review = new ReviewEntity();
+        review.setStars(5);
+        review.setRecipe(recipe);
+        review.setUser(user);
+
+        reviewRepository.save(review);
     }
 
     @PreDestroy
