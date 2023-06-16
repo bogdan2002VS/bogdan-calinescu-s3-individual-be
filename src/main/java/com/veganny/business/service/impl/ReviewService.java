@@ -5,7 +5,6 @@ import com.veganny.persistence.IUserRepository;
 import com.veganny.persistence.RecipeRepository;
 import com.veganny.persistence.ReviewRepository;
 import com.veganny.persistence.entity.ReviewEntity;
-import com.veganny.persistence.entity.UserEntity;
 import com.veganny.persistence.entity.converters.UserConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

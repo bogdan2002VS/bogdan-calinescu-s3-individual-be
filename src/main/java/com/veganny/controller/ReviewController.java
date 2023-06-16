@@ -1,7 +1,5 @@
 package com.veganny.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.veganny.business.jwt.AccessTokenHelper;
 import com.veganny.business.service.impl.ReviewService;
 import com.veganny.persistence.entity.ReviewEntity;
@@ -12,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
-import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -37,14 +33,13 @@ public class ReviewController {
             @PathVariable Long id,
             @RequestBody Integer rating,
             HttpServletRequest request
-    ) throws IOException {
+    ) {
         try {
             String accessToken = request.getHeader("Authorization").substring(7);
             Long userId = accessTokenHelper.decode(accessToken).getUserId();
             ReviewEntity savedReview = reviewService.saveReview(rating, id, userId);
             return ResponseEntity.ok(savedReview);
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -59,7 +54,6 @@ public class ReviewController {
             ReviewEntity review = reviewService.getReviewByRecipeIdAndUserId(recipeId, userId);
             return ResponseEntity.ok(review);
         } catch (Exception e) {
-            e.printStackTrace();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -72,7 +66,6 @@ public class ReviewController {
                         arr -> (Integer) arr[0],
                         arr -> (Long) arr[1]
                 ));
-        System.out.println(result);
         return ResponseEntity.ok(result);
     }
 

@@ -11,7 +11,7 @@ import lombok.*;
 public class Message {
     private String senderName;
     private String receiverName;
-    private String message;
+    private String bodyMessage;
     private String date;
     private MessageStatus status;
 }

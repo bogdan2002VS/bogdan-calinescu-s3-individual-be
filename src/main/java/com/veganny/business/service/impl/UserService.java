@@ -3,14 +3,11 @@ import com.veganny.persistence.IRoleRepository;
 import com.veganny.persistence.IUserRepository;
 import com.veganny.business.jwt.IAccessTokenHelper;
 import com.veganny.business.service.IUserService;
-import com.veganny.domain.AccessToken;
 import com.veganny.domain.IRole;
 import com.veganny.domain.User;
 import com.veganny.domain.UserWithToken;
 import com.veganny.exception.IncorrectCredentialsException;
-import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +24,6 @@ public class UserService implements IUserService {
 
     private IRoleRepository roleRepository;
 
-    private AccessToken requestAccessToken;
 
 
     @Autowired

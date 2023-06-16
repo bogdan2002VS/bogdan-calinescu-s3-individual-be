@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class InvalidAccessTokenExceptionTest {
+ class InvalidAccessTokenExceptionTest {
 
     @Test
     @DisplayName("Should return the correct HttpStatus when calling getStatus")

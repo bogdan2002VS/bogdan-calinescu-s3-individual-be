@@ -1,7 +1,6 @@
 package com.veganny.controller;
 
 import com.veganny.business.service.IUserService;
-import com.veganny.configuration.security.isauthenticated.IsAuthenticated;
 import com.veganny.controller.dto.UserDTO;
 import com.veganny.controller.requests.CreateUserReq;
 import com.veganny.controller.requests.LoginReq;
@@ -15,8 +14,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 
 
@@ -37,7 +34,6 @@ public class AuthController {
 
     @PostMapping("signin")
     public ResponseEntity<GenericObjectResponse> signIn(@RequestBody @Valid LoginReq req){
-        System.out.println("in post signin");// performence issue
         UserWithToken uwt = userService.loginUser(req.getUsername(), req.getPassword());
 
         UserDTO userDTO = UserConverter.convertToDTO(uwt.getUser());

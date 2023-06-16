@@ -23,7 +23,7 @@ import java.util.List;
 @Component
 public class AuthenticationRequestFilter extends OncePerRequestFilter {
 
-    private final static String SPRING_SECURITY_ROLE_PREFIX = "ROLE_";
+    private  static final String SPRING_SECURITY_ROLE_PREFIX = "ROLE_";
 
     @Autowired
     private IAccessTokenHelper accessTokenDecoder;

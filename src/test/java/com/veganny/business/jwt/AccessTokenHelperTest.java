@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
-public class AccessTokenHelperTest {
+ class AccessTokenHelperTest {
 
     private final IAccessTokenHelper accessTokenHelper = new AccessTokenHelper("E91E158E4C6656F68B1B5D1C316766DE98D2AD6EF3BFB44F78E9CFCDF5");
 

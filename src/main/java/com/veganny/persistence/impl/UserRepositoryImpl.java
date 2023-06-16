@@ -1,7 +1,6 @@
 package com.veganny.persistence.impl;
 
 import com.veganny.persistence.IUserRepository;
-import com.veganny.persistence.JPAUserRepository;
 import com.veganny.persistence.entity.converters.UserConverter;
 import com.veganny.domain.User;
 import com.veganny.exception.IncorrectCredentialsException;
@@ -18,17 +17,17 @@ import java.util.Optional;
 
 @Component
 public class UserRepositoryImpl implements IUserRepository {
-    private JPAUserRepository JPAUserRepository;
+    private com.veganny.persistence.JPAUserRepository jpaUserRepository;
     @Lazy
-    public UserRepositoryImpl(JPAUserRepository JPAUserRepository) {
-        this.JPAUserRepository = JPAUserRepository;
+    public UserRepositoryImpl(com.veganny.persistence.JPAUserRepository jpaUserRepository) {
+        this.jpaUserRepository = jpaUserRepository;
     }
 
     @Override
     public Long saveUser(User user){
         UserEntity entity = UserConverter.convertToEntity(user);
         try{
-            return JPAUserRepository.save(entity).getId();
+            return jpaUserRepository.save(entity).getId();
         }
         catch (DataIntegrityViolationException ex){
             throw new UsernameExistsException();
@@ -37,7 +36,7 @@ public class UserRepositoryImpl implements IUserRepository {
     }
     @Override
     public User findById(Long id){
-        Optional<UserEntity> ue = JPAUserRepository.findById(id);
+        Optional<UserEntity> ue = jpaUserRepository.findById(id);
         if(ue.isEmpty()){
             throw new ResourceNotFoundException("User", "id", id);
         }
@@ -46,7 +45,7 @@ public class UserRepositoryImpl implements IUserRepository {
 
     @Override
     public User getUserByUsername(String username){
-        Optional<UserEntity> ue = JPAUserRepository.findByUsername(username);
+        Optional<UserEntity> ue = jpaUserRepository.findByUsername(username);
         if(ue.isEmpty()){
             throw new IncorrectCredentialsException();
         }

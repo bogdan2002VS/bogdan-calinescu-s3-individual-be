@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
 public class RecipeService {
 
     private RecipeRepository recipeRepository;
+    private static final String RECIPE_NOT_FOUND_MESSAGE = "Recipe was not found with id: ";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -25,15 +25,15 @@ public class RecipeService {
         List<RecipeEntity> recipeEntities = recipeRepository.findAll();
         return recipeEntities.stream()
                 .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
+
 
     public Recipe getRecipeById(Long id) {
         RecipeEntity recipeEntity = recipeRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Recipe was not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException(RECIPE_NOT_FOUND_MESSAGE + id));
         return convertToDto(recipeEntity);
     }
-
     public RecipeEntity createRecipe(Recipe recipe) {
         RecipeEntity recipeEntity = convertToEntity(recipe);
         return recipeRepository.save(recipeEntity);
@@ -41,7 +41,7 @@ public class RecipeService {
 
     public RecipeEntity updateRecipe(Long id, Recipe recipe) {
         RecipeEntity existingRecipe = recipeRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Recipe was not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException(RECIPE_NOT_FOUND_MESSAGE + id));
         existingRecipe.setId(id);
         existingRecipe.setTitle(recipe.getTitle());
         existingRecipe.setCalories(recipe.getCalories());
@@ -53,7 +53,7 @@ public class RecipeService {
 
     public void deleteRecipe(Long id) {
         RecipeEntity recipeEntity = recipeRepository.findById(id)
-                .orElseThrow(() -> new NotFoundException("Recipe was not found with id: " + id));
+                .orElseThrow(() -> new NotFoundException(RECIPE_NOT_FOUND_MESSAGE + id));
         recipeRepository.delete(recipeEntity);
     }
 
@@ -61,7 +61,7 @@ public class RecipeService {
         return recipeRepository.searchRecipes(titleQuery, mealTypeQuery, caloriesFrom, caloriesTo)
                 .stream()
                 .map(this::convertToDto)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private Recipe convertToDto(RecipeEntity recipeEntity) {

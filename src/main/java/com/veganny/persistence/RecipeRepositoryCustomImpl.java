@@ -37,8 +37,6 @@ public class RecipeRepositoryCustomImpl implements RecipeRepositoryCustom {
 
         if (Objects.nonNull(from) && Objects.nonNull(to) ) {
             predicates.add(criteriaBuilder.between(caloriesPath, from, to));
-            System.out.println(from);
-            System.out.println(to);
         }
 
         query.select(recipe).where(criteriaBuilder.and(predicates.toArray(new Predicate[0])));

@@ -8,6 +8,7 @@ import com.veganny.persistence.ReviewRepository;
 import com.veganny.persistence.entity.RecipeEntity;
 import com.veganny.persistence.entity.ReviewEntity;
 import com.veganny.persistence.entity.converters.UserConverter;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -36,6 +37,45 @@ class ReviewServiceTest {
 
     @InjectMocks
     private ReviewService reviewService;
+
+
+    @Test
+    @DisplayName("Should return null when the recipeId and userId combination does not exist")
+    void getReviewByRecipeIdAndUserIdWhenNotExist() {
+        Long recipeId = 1L;
+        Long userId = 2L;
+
+        when(reviewRepository.findByRecipeIdAndUserId(recipeId, userId)).thenReturn(null);
+
+        ReviewEntity result = reviewService.getReviewByRecipeIdAndUserId(recipeId, userId);
+
+        assertNull(result);
+        verify(reviewRepository, times(1)).findByRecipeIdAndUserId(recipeId, userId);
+    }
+
+    @Test
+    @DisplayName("Should return the review when the recipeId and userId are valid")
+    void getReviewByRecipeIdAndUserIdWhenValid() {
+        Long recipeId = 1L;
+        Long userId = 2L;
+        User user = User.builder()
+                .id(userId)
+                .role(UserRole.builder()
+                        .id(1L)
+                        .role("USER")
+                        .build())
+                .username("testuser")
+                .password("testpassword")
+                .firstName("Test")
+                .lastName("User")
+                .email("testuser@example.com")
+                .address("123 Main St")
+                .phone("555-555-5555")
+                .build();
+
+        // Assertion
+        Assertions.assertEquals(userId, user.getId());
+    }
 
 
     @Test
@@ -68,10 +108,9 @@ class ReviewServiceTest {
 
     @Test
     @DisplayName("Should return review statistics for a given recipe ID")
-    void getReviewStatisticsForGivenRecipeId() {// create mock data
+    void getReviewStatisticsForGivenRecipeId() {
         Long recipeId = 1L;
         Long userId = 1L;
-
 
         User user = User.builder()
                 .id(userId)
@@ -87,6 +126,11 @@ class ReviewServiceTest {
                 .address("123 Main St")
                 .phone("555-555-5555")
                 .build();
+
+
+        List<Object[]> reviewStatistics = reviewService.getReviewStatistics(recipeId);
+
+        assertNotNull(reviewStatistics);
     }
 
     @Test
@@ -113,27 +157,6 @@ class ReviewServiceTest {
 
         assertNull(result);
         verify(reviewRepository, times(1)).findByRecipeIdAndUserId(recipeId, userId);
-    }
-
-    @Test
-    @DisplayName("Should return the review when the recipeId and userId are valid")
-    void getReviewByRecipeIdAndUserIdWhenValid() {
-        Long recipeId = 1L;
-        Long userId = 2L;
-        User user = User.builder()
-                .id(userId)
-                .role(UserRole.builder()
-                        .role("USER")
-                        .id(1L)
-                        .build())
-                .username("testuser")
-                .password("testpassword")
-                .firstName("Test")
-                .lastName("User")
-                .email("testuser@example.com")
-                .address("123 Main St")
-                .phone("555-555-5555")
-                .build();
     }
 
     @Test

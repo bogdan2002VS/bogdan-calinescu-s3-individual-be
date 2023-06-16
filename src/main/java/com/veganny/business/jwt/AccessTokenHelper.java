@@ -76,11 +76,10 @@ public class AccessTokenHelper implements IAccessTokenHelper {
                     .role(role)
                     .userId(claims.get("userId", Long.class))
                     .build();
-        } catch (JwtException e) {
-            throw new BadTokenException("Invalid access token: " + e.getMessage());
-        } catch (IllegalArgumentException e) {
+        } catch (JwtException | IllegalArgumentException e) {
             throw new BadTokenException("Invalid access token: " + e.getMessage());
         }
+
     }
 
 }
