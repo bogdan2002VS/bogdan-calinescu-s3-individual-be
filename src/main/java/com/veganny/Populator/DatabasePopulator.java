@@ -1,7 +1,6 @@
 package com.veganny.Populator;
 
 import com.veganny.persistence.*;
-import com.veganny.persistence.CuisineRepository;
 import com.veganny.persistence.entity.*;
 import org.hibernate.validator.internal.util.stereotypes.Lazy;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +18,14 @@ public class DatabasePopulator {
     private final RecipeRepository JPARecipeRepository;
     private final ReviewRepository reviewRepository;
 
-    private final CuisineRepository cuisineRepository;
     @Lazy
     private JPARoleRepository JPARoleRepository;
     @Lazy
     private JPAUserRepository JPAUserRepository;
 
     @Autowired
-    public DatabasePopulator(RecipeRepository JPARecipeRepository, CuisineRepository cuisineRepository, JPARoleRepository JPARoleRepository, JPAUserRepository JPAUserRepository, ReviewRepository reviewRepository) {
+    public DatabasePopulator(RecipeRepository JPARecipeRepository, JPARoleRepository JPARoleRepository, JPAUserRepository JPAUserRepository, ReviewRepository reviewRepository) {
         this.JPARecipeRepository = JPARecipeRepository;
-        this.cuisineRepository = cuisineRepository;
         this.JPARoleRepository = JPARoleRepository;
         this.JPAUserRepository = JPAUserRepository;
         this.reviewRepository = reviewRepository;
@@ -37,15 +34,6 @@ public class DatabasePopulator {
     @PostConstruct
     public void populate() {
         // Populate categories
-
-        // Populate cuisines
-        CuisineEntity american = new CuisineEntity();
-        american.setName("American");
-        cuisineRepository.save(american);
-
-        CuisineEntity italian = new CuisineEntity();
-        italian.setName("Italian");
-        cuisineRepository.save(italian);
 
         // Add a recipe
         RecipeEntity recipe = new RecipeEntity();
@@ -83,6 +71,5 @@ public class DatabasePopulator {
     @PreDestroy
     public void cleanUp() {
         JPARecipeRepository.deleteAll();
-        cuisineRepository.deleteAll();
     }
 }
