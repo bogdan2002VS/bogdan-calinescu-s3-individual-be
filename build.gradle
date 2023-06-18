@@ -60,19 +60,20 @@ flyway {
 
 // configure the plugin to output test reports in the XML format required by SonarQube
 jacocoTestReport {
+	dependsOn test
 	reports {
-		xml.enabled true
+		xml.required = true
 	}
 }
+
 
 // use finalizedBy to ensure that the test report is always generated after tests are run
 test.finalizedBy jacocoTestReport
 
 // to ensure the Jacoco test report is always created when we run the sonarqube task
 // let’s setup the following dependsOn relationship:
-tasks.named('sonarqube').configure {
-	dependsOn test
-}
+
+project.tasks["sonar"].dependsOn "jacocoTestReport"
 
 tasks.named('test') {
 	useJUnitPlatform()

@@ -12,6 +12,8 @@ import javax.annotation.PreDestroy;
 import java.security.SecureRandom;
 import java.util.Arrays;
 
+
+
 @Component
 public class DatabasePopulator {
 
@@ -19,9 +21,9 @@ public class DatabasePopulator {
     private final ReviewRepository reviewRepository;
 
     @Lazy
-    private JPARoleRepository jpaRoleRepository;
+    private final JPARoleRepository jpaRoleRepository;
     @Lazy
-    private JPAUserRepository jpaUserRepository;
+    private final JPAUserRepository jpaUserRepository;
 
     @Autowired
     public DatabasePopulator(RecipeRepository jpareciperepository, JPARoleRepository jpaRoleRepository, JPAUserRepository jpaUserRepository, ReviewRepository reviewRepository) {
@@ -49,7 +51,7 @@ public class DatabasePopulator {
         RoleEntity userRole = RoleEntity.builder().id(1L).roleName("user").build();
         RoleEntity adminRole = RoleEntity.builder().id(2L).roleName("admin").build();
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10, new SecureRandom());
-        String password = System.getenv("PASSWORD");
+        String password = "123";
         String encodedPassword = bCryptPasswordEncoder.encode(password);
 
         String phoneNumber =  "+1234567890";
@@ -63,7 +65,6 @@ public class DatabasePopulator {
         jpaUserRepository.save(user);
         jpaUserRepository.save(bobo);
 
-        // Add a review
         ReviewEntity review = new ReviewEntity();
         review.setStars(5);
         review.setRecipe(recipe);
